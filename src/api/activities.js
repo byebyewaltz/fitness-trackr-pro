@@ -2,14 +2,18 @@ const API = import.meta.env.VITE_API;
 
 /** Fetches an array of activities from the API. */
 export async function getActivities() {
-  try {
-    const response = await fetch(API + "/activities");
-    const result = await response.json();
-    return result;
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
+  const response = await fetch(API + "/activities");
+  const result = await response.json();
+  if (!response.ok) throw Error(result.message);
+  return result;
+}
+
+/** Fetches a single activity by ID from the API. */
+export async function getActivityById(id) {
+  const response = await fetch(API + "/activities/" + id);
+  const result = await response.json();
+  if (!response.ok) throw Error(result.message);
+  return result;
 }
 
 /**
@@ -17,9 +21,7 @@ export async function getActivities() {
  * A valid token is required.
  */
 export async function createActivity(token, activity) {
-  if (!token) {
-    throw Error("You must be signed in to create an activity.");
-  }
+  if (!token) throw Error("You must be signed in to create an activity.");
 
   const response = await fetch(API + "/activities", {
     method: "POST",
@@ -30,10 +32,8 @@ export async function createActivity(token, activity) {
     body: JSON.stringify(activity),
   });
 
-  if (!response.ok) {
-    const result = await response.json();
-    throw Error(result.message);
-  }
+  const result = await response.json();
+  if (!response.ok) throw Error(result.message);
 }
 
 /**
@@ -41,17 +41,13 @@ export async function createActivity(token, activity) {
  * A valid token is required.
  */
 export async function deleteActivity(token, id) {
-  if (!token) {
-    throw Error("You must be signed in to delete an activity.");
-  }
+  if (!token) throw Error("You must be signed in to delete an activity.");
 
   const response = await fetch(API + "/activities/" + id, {
     method: "DELETE",
     headers: { Authorization: "Bearer " + token },
   });
 
-  if (!response.ok) {
-    const result = await response.json();
-    throw Error(result.message);
-  }
+  const result = await response.json();
+  if (!response.ok) throw Error(result.message);
 }

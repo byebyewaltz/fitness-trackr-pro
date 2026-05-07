@@ -5,15 +5,12 @@ import { useAuth } from "../auth/AuthContext";
 /** Form for a user to create a new activity with a name and description. */
 export default function ActivityForm({ syncActivities }) {
   const { token } = useAuth();
-
   const [error, setError] = useState(null);
 
   const tryCreateActivity = async (formData) => {
     setError(null);
-
     const name = formData.get("name");
     const description = formData.get("description");
-
     try {
       await createActivity(token, { name, description });
       syncActivities();
@@ -28,11 +25,11 @@ export default function ActivityForm({ syncActivities }) {
       <form action={tryCreateActivity}>
         <label>
           Name
-          <input type="text" name="name" />
+          <input type="text" name="name" required />
         </label>
         <label>
           Description
-          <input type="text" name="description" />
+          <input type="text" name="description" required />
         </label>
         <button>Add activity</button>
       </form>
