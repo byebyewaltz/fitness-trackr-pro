@@ -5,8 +5,8 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import ActivitiesPage from "./activities/ActivitiesPage";
 import ActivityDetail from "./activities/ActivityDetail";
-import RoutinesPage from "./activities/RoutinesPage";
-import RoutineDetail from "./activities/RoutineDetail";
+import RoutinesPage from "./routines/RoutinesPage";
+import RoutineDetail from "./routines/RoutineDetail";
 import Error404 from "./Error404.jsx";
 
 export default function App() {
