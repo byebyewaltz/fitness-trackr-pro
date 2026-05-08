@@ -32,4 +32,4 @@ export default function ActivitiesPage() {
       {token && <ActivityForm syncActivities={syncActivities} />}
     </>
   );
-}
+} 
